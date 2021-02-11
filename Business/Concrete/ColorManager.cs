@@ -1,4 +1,6 @@
 ﻿using Business.Abstract;
+using Business.Constans;
+using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
 using System;
@@ -16,14 +18,59 @@ namespace Business.Concrete
             _colorDal = colorDal;
         }
 
-        public List<Color> GetAll()
+        public IResult Add(Color color)
         {
-            return _colorDal.GetAll();
+            if (DateTime.Now.Hour == 19)
+            {
+                return new ErrorResult(Messages.MaintenanceTime);
+            }
+
+            _colorDal.Add(color);
+            return new SuccessResult(Messages.ColorAdded);
         }
 
-        public Color GetById(int id)
+        public IResult Update(Color color)
         {
-            return _colorDal.Get(c=>c.ColorId == id);
+            if (DateTime.Now.Hour == 19)
+            {
+                return new ErrorResult(Messages.MaintenanceTime);
+            }
+
+            _colorDal.Update(color);
+            return new SuccessResult(Messages.ColorUpdated);
         }
+
+        public IResult Delete(Color color)
+        {
+            if (DateTime.Now.Hour == 19)
+            {
+                return new ErrorResult(Messages.MaintenanceTime);
+            }
+
+            _colorDal.Delete(color);
+            return new SuccessResult(Messages.ColorDeleted);
+        }
+
+        public IDataResult<List<Color>> GetAll()
+        {
+
+            if (DateTime.Now.Hour == 19)
+            {
+                return new ErrorDataResult<List<Color>>(Messages.MaintenanceTime);
+            }
+            return new SuccessDataResult<List<Color>>(_colorDal.GetAll(),Messages.ColorsListed);
+        }
+
+        public IDataResult<Color> GetById(int id)
+        {
+            if (DateTime.Now.Hour == 19)
+            {
+                return new ErrorDataResult<Color>(Messages.MaintenanceTime);
+            }
+
+            return new SuccessDataResult<Color>(_colorDal.Get(c=>c.ColorId == id),Messages.ColorFound);
+        }
+
+       
     }
 }

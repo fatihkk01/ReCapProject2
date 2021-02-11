@@ -1,4 +1,6 @@
 ﻿using Business.Abstract;
+using Business.Constans;
+using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
 using System;
@@ -16,14 +18,58 @@ namespace Business.Concrete
             _brandDal = brandDal;
         }
 
-        public List<Brand> GetAll()
+        public IResult Add(Brand brand)
         {
-            return _brandDal.GetAll();
+            if (DateTime.Now.Hour == 19)
+            {
+                return new ErrorResult(Messages.MaintenanceTime);
+            }
+            _brandDal.Add(brand);
+            return new SuccessResult(Messages.BrandAdded);
         }
 
-        public Brand GetById(int id)
+        public IResult Update(Brand brand)
         {
-            return _brandDal.Get(b => b.BrandId == id);
+            if (DateTime.Now.Hour == 19)
+            {
+                return new ErrorResult(Messages.MaintenanceTime);
+            }
+
+            _brandDal.Update(brand);
+            return new SuccessResult(Messages.BrandUpdated);
         }
+
+        public IResult Delete(Brand brand)
+        {
+            if (DateTime.Now.Hour == 19)
+            {
+                return new ErrorResult(Messages.MaintenanceTime);
+            }
+
+            _brandDal.Delete(brand);
+            return new SuccessResult(Messages.BrandDeleted);
+        }
+
+        public IDataResult<List<Brand>> GetAll()
+        {
+            if (DateTime.Now.Hour == 19)
+            {
+                return new ErrorDataResult<List<Brand>>(Messages.MaintenanceTime);
+            }
+
+            return new SuccessDataResult<List<Brand>>(_brandDal.GetAll(),Messages.BrandAdded);
+        }
+
+        public IDataResult<Brand> GetById(int id)
+        {
+            if (DateTime.Now.Hour == 19)
+            {
+                return new ErrorDataResult<Brand>(Messages.MaintenanceTime);
+            }
+
+            return new SuccessDataResult<Brand>(_brandDal.Get(b => b.BrandId == id), Messages.BrandFound);
+        }
+
+        
     }
 }
