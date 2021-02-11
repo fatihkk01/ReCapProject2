@@ -23,7 +23,7 @@ namespace ConsoleUI
         {
             CarManager carManager = new CarManager(new EfCarDal());
 
-            foreach (var car in carManager.GetCarDetails())
+            foreach (var car in carManager.GetCarDetails().Data)
             {
                 Console.WriteLine("CarId : " + car.CarId);
                 Console.WriteLine("ColorName : " + car.ColorName);
@@ -61,14 +61,25 @@ namespace ConsoleUI
         {
             CarManager carManager = new CarManager(new EfCarDal());
 
-            foreach (var car in carManager.GetAllByDailyPrice(500, 100))
+            var result = carManager.GetAllByDailyPrice(1000, 100);
+
+            if (result.Success)
             {
-                Console.WriteLine("CarId : " + car.CarId);
-                Console.WriteLine("ColorId : " + car.ColorId);
-                Console.WriteLine("BrandId : " + car.BrandId);
-                Console.WriteLine("DailyPrice : " + car.DailyPrice);
-                Console.WriteLine("ModelYear : " + car.ModelYear);
-                Console.WriteLine("Description : " + car.Description);
+
+                foreach (var car in result.Data)
+                {
+                    Console.WriteLine("CarId : " + car.CarId);
+                    Console.WriteLine("ColorId : " + car.ColorId);
+                    Console.WriteLine("BrandId : " + car.BrandId);
+                    Console.WriteLine("DailyPrice : " + car.DailyPrice);
+                    Console.WriteLine("ModelYear : " + car.ModelYear);
+                    Console.WriteLine("Description : " + car.Description);
+                }
+
+            }
+            else
+            {
+                Console.WriteLine(result.Message);
             }
         }
     }
