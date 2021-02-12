@@ -2,6 +2,7 @@
 using Business.Concrete;
 using DataAccess.Concrete.EntityFramework;
 using DataAccess.Concrete.InMemory;
+using Entities.Concrete;
 
 namespace ConsoleUI
 {
@@ -15,8 +16,72 @@ namespace ConsoleUI
 
             //BrandTest();
 
-            CarDtoTest();
+            //CarDtoTest();
 
+            //UserTest();
+            
+            //CustomerTest();
+
+            //RentalTest();
+
+        }
+
+        private static void RentalTest()
+        {
+            RentalManager rentalManager = new RentalManager(new EfRentalDal());
+
+            var result = rentalManager.CheckReturnDate(1);
+
+            Console.WriteLine(result.Message);
+
+            var result2 = rentalManager.UpdateReturnDate(1);
+
+            Console.WriteLine(result2.Message);
+        }
+
+        private static void CustomerTest()
+        {
+            CustomerManager customerManager = new CustomerManager(new EfCustomerDal());
+
+            var result = customerManager.GetAll();
+
+            if (result.Success)
+            {
+                foreach (var customer in result.Data)
+                {
+                    Console.WriteLine("CustomerId : " + customer.UserId);
+                    Console.WriteLine("CompanyName : " + customer.CompanyName);
+                }
+            }
+            else
+            {
+                Console.WriteLine(result.Message);
+            }
+        }
+
+        private static void UserTest()
+        {
+            UserManager userManager = new UserManager(new EfUserDal());
+
+            var result = userManager.GetAll();
+
+            if (result.Success)
+            {
+                Console.WriteLine("--------------------------------------");
+                foreach (var user in result.Data)
+                {
+                    Console.WriteLine("UserId : " + user.Id);
+                    Console.WriteLine("FirstName : " + user.FirstName);
+                    Console.WriteLine("LastName : " + user.LastName);
+                    Console.WriteLine("Email : " + user.Email);
+                    Console.WriteLine("Password : " + user.Password);
+                    Console.WriteLine("--------------------------------------");
+                }
+            }
+            else
+            {
+                Console.WriteLine(result.Message);
+            }
         }
 
         private static void CarDtoTest()
@@ -29,11 +94,11 @@ namespace ConsoleUI
             {
                 foreach (var car in result.Data)
                 {
-                    Console.WriteLine("CarId : " + car.CarId);
-                    Console.WriteLine("ColorName : " + car.ColorName);
-                    Console.WriteLine("BrandName : " + car.BrandName);
-                    Console.WriteLine("DailyPrice : " + car.DailyPrice);
-                    Console.WriteLine("ModelYear : " + car.ModelYear);
+                    Console.WriteLine("Car Id : " + car.CarId);
+                    Console.WriteLine("Color Name : " + car.ColorName);
+                    Console.WriteLine("Brand Name : " + car.BrandName);
+                    Console.WriteLine("Daily Price : " + car.DailyPrice);
+                    Console.WriteLine("Model Year : " + car.ModelYear);
                     Console.WriteLine("Description : " + car.Description);
 
                 }
@@ -55,8 +120,8 @@ namespace ConsoleUI
             {
                 foreach (var brand in result.Data)
                 {
-                    Console.WriteLine("BrandId : " + brand.BrandId);
-                    Console.WriteLine("BrandName : " + brand.BrandName);
+                    Console.WriteLine("Brand Id : " + brand.BrandId);
+                    Console.WriteLine("Brand Name : " + brand.BrandName);
                 }
             }
             else
