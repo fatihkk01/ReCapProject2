@@ -37,6 +37,7 @@ namespace Business.Constans
         public static string RentalDeleted = "Kiralama bilgileri silindi";
         public static string RentalsListed = "Kiralama bilgileri listelendi";
         public static string ReturnDateInformation = "Araç henüz teslim edilmedi";
+        public static string ReturnDateInformationSuccess = "Araç müsait";
         public static string UpdateReturnDateError = "Araç daha önce teslim edildi.";
         public static string UpdateReturnDateSuccess = "Araç teslim edildi";
         public static string IdNotFound = "Belirttiğiniz id de bir araç yok";

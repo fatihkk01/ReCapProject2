@@ -76,7 +76,7 @@ namespace Business.Concrete
                 {
                     return new ErrorResult(Messages.ReturnDateInformation);
                 }
-                return new SuccessResult();
+                return new SuccessResult(Messages.ReturnDateInformationSuccess);
             }
 
             return new ErrorResult(Messages.IdNotFound);
