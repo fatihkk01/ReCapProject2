@@ -1,9 +1,13 @@
 ﻿using Business.Abstract;
 using Business.Constans;
+using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Validation;
+using Core.CrossCuttingConcerns.Validation;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
 using Entities.DTOs;
+using FluentValidation;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -19,19 +23,11 @@ namespace Business.Concrete
             _carDal = carDal;
         }
 
+        [ValidationAspect(typeof(CarValidator))]
         public IResult Add(Car car)
         {
             //business codes
 
-            if (DateTime.Now.Hour == 19)
-            {
-                return new ErrorResult(Messages.MaintenanceTime);
-            }
-
-            if (car.DailyPrice < 0)
-            {
-                return new ErrorResult(Messages.CarDailyPriceInvalid);
-            }
 
             _carDal.Add(car);
             return new SuccessResult(Messages.CarAdded);
