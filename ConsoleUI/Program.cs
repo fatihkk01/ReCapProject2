@@ -19,10 +19,13 @@ namespace ConsoleUI
             //CarDtoTest();
 
             //UserTest();
-            
+
             //CustomerTest();
 
             //RentalTest();
+
+            Console.WriteLine(AppDomain.CurrentDomain.BaseDirectory);
+
 
         }
 

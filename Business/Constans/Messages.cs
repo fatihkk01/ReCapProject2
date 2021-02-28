@@ -41,6 +41,12 @@ namespace Business.Constans
         public static string UpdateReturnDateError = "Araç daha önce teslim edildi.";
         public static string UpdateReturnDateSuccess = "Araç teslim edildi";
         public static string IdNotFound = "Belirttiğiniz id de bir araç yok";
-       
+        public static string CarImageAdded = "Araba resmi eklendi";
+        public static string CarImageCountError = "Bir arabaya ait en fazla 5 resim olabilir";
+        public static string CarImagesListed = "Araba resimleri listelendi";
+        public static string CarImageUpdated = "Araba resmi güncellendi";
+        public static string CarImageDeleted = "Araba resmi silindi";
+        public static string UndefinedExtensionError = "Sadece .jpeg , .jpg ve .png uzantılı dosyalar ekleyebilirsiniz";
+        public static string CarImageNull = "Lütfen bir araba resmi ekleyiniz";
     }
 }
