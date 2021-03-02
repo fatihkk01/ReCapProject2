@@ -2,8 +2,8 @@
 using Business.Concrete;
 using DataAccess.Concrete.EntityFramework;
 using DataAccess.Concrete.InMemory;
+using Core.Entities.Concrete;
 using Entities.Concrete;
-
 namespace ConsoleUI
 {
     class Program
@@ -66,25 +66,26 @@ namespace ConsoleUI
         {
             UserManager userManager = new UserManager(new EfUserDal());
 
-            var result = userManager.GetAll();
+            //var result = userManager.GetAll();
 
-            if (result.Success)
-            {
-                Console.WriteLine("--------------------------------------");
-                foreach (var user in result.Data)
-                {
-                    Console.WriteLine("UserId : " + user.Id);
-                    Console.WriteLine("FirstName : " + user.FirstName);
-                    Console.WriteLine("LastName : " + user.LastName);
-                    Console.WriteLine("Email : " + user.Email);
-                    Console.WriteLine("Password : " + user.Password);
-                    Console.WriteLine("--------------------------------------");
-                }
-            }
-            else
-            {
-                Console.WriteLine(result.Message);
-            }
+            //if (result.Success)
+            //{
+            //    Console.WriteLine("--------------------------------------");
+            //    foreach (var user in result.Data)
+            //    {
+            //        Console.WriteLine("UserId : " + user.Id);
+            //        Console.WriteLine("FirstName : " + user.FirstName);
+            //        Console.WriteLine("LastName : " + user.LastName);
+            //        Console.WriteLine("Email : " + user.Email);
+            //        Console.WriteLine("PasswordHash : " + user.PasswordHash);
+            //        Console.WriteLine("PasswordSalt : " + user.PasswordSalt);
+            //        Console.WriteLine("--------------------------------------");
+            //    }
+            //}
+            //else
+            //{
+            //    Console.WriteLine(result.Message);
+            //}
         }
 
         private static void CarDtoTest()
