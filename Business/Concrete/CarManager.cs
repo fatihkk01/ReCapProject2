@@ -2,6 +2,9 @@
 using Business.BusinessAspects.Autofac;
 using Business.Constans;
 using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Caching;
+using Core.Aspects.Autofac.Performance;
+using Core.Aspects.Autofac.Transaction;
 using Core.Aspects.Autofac.Validation;
 using Core.CrossCuttingConcerns.Validation;
 using Core.Utilities.Results;
@@ -26,11 +29,11 @@ namespace Business.Concrete
 
         [SecuredOperation("Car.Add")]
         [ValidationAspect(typeof(CarValidator))]
+        [CacheRemoveAspect("IProcutService.Get")]
+        [CacheAspect]
         public IResult Add(Car car)
         {
             //business codes
-
-
             _carDal.Add(car);
             return new SuccessResult(Messages.CarAdded);
         }
@@ -46,6 +49,7 @@ namespace Business.Concrete
             return new SuccessResult(Messages.CarDeleted);
         }
 
+        [CacheAspect]
         public IDataResult<List<Car>> GetAll()
         {
             if(DateTime.Now.Hour == 19)
@@ -84,6 +88,8 @@ namespace Business.Concrete
             return new SuccessDataResult<List<Car>>(_carDal.GetAll(c => c.DailyPrice >= minDailyPrice && c.DailyPrice <= maxDailyPrice), Messages.CarsListed);
         }
 
+        [CacheAspect]
+        [PerformanceAspect(5)]
         public IDataResult<Car> GetById(int id)
         {
             if (DateTime.Now.Hour == 19)
@@ -104,6 +110,7 @@ namespace Business.Concrete
             return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetails(), Messages.CarDetailsListed);
         }
 
+        [CacheRemoveAspect("IProcutService.Get")]
         public IResult Update(Car car)
         {
             if (DateTime.Now.Hour == 19)
@@ -115,5 +122,21 @@ namespace Business.Concrete
 
             return new SuccessResult(Messages.CarUpdated);
         }
+        
+        //UnitOfWork
+        [TransactionScopeAspect]
+        public IResult AddTransactionalTest(Car car)
+        {
+            Add(car);
+            if (car.DailyPrice < 10)
+            {
+                throw new Exception("");
+            }
+
+            Add(car);
+
+            return null;
+        }
+
     }
 }
