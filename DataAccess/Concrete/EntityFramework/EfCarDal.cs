@@ -44,5 +44,21 @@ namespace DataAccess.Concrete.EntityFramework
             }
         }
 
+        public List<CarDetailDto> GetCarDetailsByColorId(int colorId)
+        {
+            using (NewReCapDbContext context = new NewReCapDbContext())
+            {
+                var result = from c in context.Cars
+                             join cs in context.Colors
+                             on c.ColorId equals cs.ColorId
+                             join b in context.Brands
+                             on c.BrandId equals b.BrandId
+                             where c.ColorId == colorId
+                             select new CarDetailDto { CarId = c.CarId, ColorName = cs.ColorName, BrandName = b.BrandName, ModelYear = c.ModelYear, DailyPrice = c.DailyPrice, Description = c.Description };
+
+                return result.ToList();
+            }
+        }
+
     }
 }
