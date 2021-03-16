@@ -138,5 +138,9 @@ namespace Business.Concrete
             return null;
         }
 
+        public IDataResult<List<CarDetailDto>> GetCarDetailsByBrandId(int brandId)
+        {
+            return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetailsByBrandId(brandId), Messages.CarDetailsListed);
+        }
     }
 }
