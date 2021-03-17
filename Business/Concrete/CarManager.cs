@@ -29,8 +29,8 @@ namespace Business.Concrete
 
         [SecuredOperation("Car.Add")]
         [ValidationAspect(typeof(CarValidator))]
-        [CacheRemoveAspect("IProcutService.Get")]
-        [CacheAspect]
+        //[CacheRemoveAspect("IProcutService.Get")]
+        //[CacheAspect]
         public IResult Add(Car car)
         {
             //business codes
@@ -146,6 +146,11 @@ namespace Business.Concrete
         public IDataResult<List<CarDetailDto>> GetCarDetailsByColorId(int colordId)
         {
             return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetailsByColorId(colordId), Messages.CarDetailsListed);
+        }
+
+        public IDataResult<List<CarDetailDto>> GetCarDetailsById(int id)
+        {
+            return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetailsById(id), Messages.CarDetailsListed);
         }
     }
 }
