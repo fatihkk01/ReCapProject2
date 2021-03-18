@@ -5,6 +5,7 @@ using Core.Utilities.FileOperations;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
+using Entities.DTOs;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -174,6 +175,9 @@ namespace Business.Concrete
             return new SuccessResult(Messages.CarImageAdded);
         }
 
-
+        public IDataResult<List<CarImageDto>> GetCarImageByCarId(int carId)
+        {
+            return new SuccessDataResult<List<CarImageDto>>(_carImageDal.GetCarImageByCarId(carId), Messages.CarImagesListed);
+        }
     }
 }

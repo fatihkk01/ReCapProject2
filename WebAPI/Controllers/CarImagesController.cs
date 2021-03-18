@@ -93,6 +93,21 @@ namespace WebAPI.Controllers
 
         }
 
+        [HttpPost("getcarimagepathbycarid")]
+        public IActionResult GetCarImagePathByCarId(int carId)
+        {
+            var result = _carImageService.GetCarImageByCarId(carId);
+
+            if (!result.Success)
+            {
+                return BadRequest(result);
+            }
+
+            return Ok(result);
+
+        }
+
+
         [HttpPost("getbyid")]
         public IActionResult GetById([FromForm] int id)
         {
@@ -106,6 +121,8 @@ namespace WebAPI.Controllers
             return Ok(result);
 
         }
+
+        
 
 
     }

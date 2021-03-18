@@ -27,11 +27,6 @@ namespace Business.Concrete
         public IResult Add(Rental rental)
         {
 
-            if (DateTime.Now.Hour == 20)
-            {
-                return new ErrorResult(Messages.MaintenanceTime);
-            }
-
             _rentalDal.Add(rental);
             return new SuccessResult(Messages.RentalAdded);
 
@@ -39,10 +34,6 @@ namespace Business.Concrete
 
         public IResult Update(Rental rental)
         {
-            if (DateTime.Now.Hour == 19)
-            {
-                return new ErrorResult(Messages.MaintenanceTime);
-            }
 
             _rentalDal.Update(rental);
             return new SuccessResult(Messages.RentalUpdated);
@@ -52,21 +43,13 @@ namespace Business.Concrete
         public IResult Delete(Rental rental)
         {
 
-            if (DateTime.Now.Hour == 19)
-            {
-                return new ErrorResult(Messages.MaintenanceTime);
-            }
-
             _rentalDal.Delete(rental);
             return new SuccessResult(Messages.RentalDeleted);
         }
 
         public IDataResult<List<Rental>> GetAll()
         {
-            if (DateTime.Now.Hour == 19)
-            {
-                return new ErrorDataResult<List<Rental>>(Messages.MaintenanceTime);
-            }
+
 
             return new SuccessDataResult<List<Rental>>(_rentalDal.GetAll(), Messages.RentalsListed);
         }
