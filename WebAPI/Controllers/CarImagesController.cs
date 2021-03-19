@@ -93,7 +93,7 @@ namespace WebAPI.Controllers
 
         }
 
-        [HttpPost("getcarimagepathbycarid")]
+        [HttpGet("getcarimagepathbycarid")]
         public IActionResult GetCarImagePathByCarId(int carId)
         {
             var result = _carImageService.GetCarImageByCarId(carId);
