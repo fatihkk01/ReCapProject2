@@ -27,13 +27,14 @@ namespace Business.Concrete
             _carDal = carDal;
         }
 
-        [SecuredOperation("Car.Add")]
+        //[SecuredOperation("Car.Add")]
         [ValidationAspect(typeof(CarValidator))]
-        //[CacheRemoveAspect("IProcutService.Get")]
+        [CacheRemoveAspect("IProcutService.Get")]
         //[CacheAspect]
         public IResult Add(Car car)
         {
             //business codes
+            
             _carDal.Add(car);
             return new SuccessResult(Messages.CarAdded);
         }
