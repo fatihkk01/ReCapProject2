@@ -12,6 +12,7 @@ namespace Business.Abstract
         IResult Add(Rental rental);
         IResult Update(Rental rental);
         IResult Delete(Rental rental);
+        IResult GetRentalByCarId(int carId);
         IDataResult<List<RentalDetailDto>> GetRentalDetails();
         IResult CheckReturnDate(int id);
         IResult UpdateReturnDate(int id);
